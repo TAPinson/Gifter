@@ -26,6 +26,12 @@ namespace Gifter.Controllers
             return Ok(_commentRepository.GetAll());
         }
 
+        [HttpGet("bypost/{id}")]
+        public IActionResult GetCommentsByPostId(int id)
+        {
+            return Ok(_commentRepository.GetByPostId(id));
+        }
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

@@ -46,6 +46,9 @@ namespace Gifter.Repositories
             _context.SaveChanges();
         }
 
-
+        public List<Comment> GetByPostId(int id)
+        {
+            return _context.Comment.Where(comment => comment.PostId == id).ToList();
+        }
     }
 }
