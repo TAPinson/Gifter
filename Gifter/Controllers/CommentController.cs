@@ -14,11 +14,11 @@ namespace Gifter.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
-        private readonly CommentRepository _commentRepository;
+        private ICommentRepository _commentRepository;
 
-        public CommentController(ApplicationDbContext context)
+        public CommentController(ICommentRepository commentRepository)
         {
-            _commentRepository = new CommentRepository(context);
+            _commentRepository = commentRepository;
         }
 
         public IActionResult Get()

@@ -6,7 +6,7 @@ using Gifter.Models;
 
 namespace Gifter.Repositories
 {
-    public class PostRepository
+    public class PostRepository : IPostRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -27,6 +27,7 @@ namespace Gifter.Repositories
         {
             return _context.Post
                 .Include(p => p.UserProfile)
+                .Include(p => p.Comments)
                 .FirstOrDefault(p => p.Id == id);
         }
 
@@ -56,6 +57,17 @@ namespace Gifter.Repositories
             var post = GetById(id);
             _context.Post.Remove(post);
             _context.SaveChanges();
+        }
+
+        public List<Post> Search(string criterion, bool sortDescending)
+        {
+            var query = _context.Post
+                                .Include(p => p.UserProfile)
+                                .Where(p => p.Title.Contains(criterion));
+
+            return sortDescending
+                ? query.OrderByDescending(p => p.DateCreated).ToList()
+                : query.OrderBy(p => p.DateCreated).ToList();
         }
 
     }

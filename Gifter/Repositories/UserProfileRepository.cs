@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Gifter.Repositories
 {
-    public class UserProfileRepository
+    public class UserProfileRepository : IUserProfileRepository
     {
         private readonly ApplicationDbContext _context;
         public UserProfileRepository(ApplicationDbContext context)

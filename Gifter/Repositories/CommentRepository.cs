@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Gifter.Repositories
 {
-    public class CommentRepository
+    public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationDbContext _context;
 

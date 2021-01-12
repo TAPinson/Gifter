@@ -9,10 +9,10 @@ namespace Gifter.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        private readonly PostRepository _postRepository;
-        public PostController(ApplicationDbContext context)
+        private IPostRepository _postRepository;
+        public PostController(IPostRepository postRepository)
         {
-            _postRepository = new PostRepository(context);
+            _postRepository = postRepository;
         }
 
         [HttpGet]
@@ -62,6 +62,12 @@ namespace Gifter.Controllers
         {
             _postRepository.Delete(id);
             return NoContent();
+        }
+
+        [HttpGet("search")]
+        public IActionResult Search(string q, bool sortDesc)
+        {
+            return Ok(_postRepository.Search(q, sortDesc));
         }
     }
 }

@@ -14,11 +14,11 @@ namespace Gifter.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly UserProfileRepository _userProfileRepository;
+        private IUserProfileRepository _userProfileRepository;
 
-        public UserProfileController(ApplicationDbContext context)
+        public UserProfileController(IUserProfileRepository userProfileRepository)
         {
-            _userProfileRepository = new UserProfileRepository(context);
+            _userProfileRepository = userProfileRepository;
 
         }
 
