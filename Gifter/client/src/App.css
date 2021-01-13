@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* New Post Form */
+.newPostFormArea {
+  
+  padding: 1em;
+  width: 30%;
+  border: 1px solid;
+ 
+}
+
+.submitPostButton{
+  margin-top: 1em;
+}
