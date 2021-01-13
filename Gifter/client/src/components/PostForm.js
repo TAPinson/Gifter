@@ -21,6 +21,16 @@ const NewPostForm = () => {
     date.yyyymmdd();
     // End DateTime Setup
 
+    const submitPost = (post) => {
+        fetch('/api/post', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(post)
+        })
+    }
+
     const handleControlledInputChange = (event) => {
         newPost[event.target.id] = event.target.value
         newPost.userProfileId = parseInt(newPost.userProfileId)
@@ -30,17 +40,9 @@ const NewPostForm = () => {
 
     const handleClickSavePost = (event) => {
         event.preventDefault()
-
-        console.log(newPost)
-        fetch('/api/post', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newPost)
-        })
-
+        submitPost(newPost)
     }
+
 
 
     return (
