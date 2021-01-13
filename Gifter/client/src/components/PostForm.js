@@ -6,9 +6,25 @@ const NewPostForm = () => {
 
     const newPost = {}
 
+    // Get SQL friendly DateTime
+    Date.prototype.yyyymmdd = function () {
+        var mm = this.getMonth() + 1; // getMonth() is zero-based
+        var dd = this.getDate();
+
+        return [this.getFullYear(),
+        "-" + (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + "-" + dd
+        ].join('');
+    };
+
+    var date = new Date();
+    date.yyyymmdd();
+    // End DateTime Setup
+
     const handleControlledInputChange = (event) => {
         newPost[event.target.id] = event.target.value
-        newPost.dateCreated = Date.now();
+        newPost.userProfileId = parseInt(newPost.userProfileId)
+        newPost.dateCreated = date.yyyymmdd();
         //console.log(newPost)
     }
 
@@ -16,6 +32,14 @@ const NewPostForm = () => {
         event.preventDefault()
 
         console.log(newPost)
+        fetch('/api/post', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newPost)
+        })
+
     }
 
 
