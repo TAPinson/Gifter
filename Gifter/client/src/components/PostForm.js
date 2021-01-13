@@ -1,9 +1,7 @@
-import React from "react";
-
+import React from 'react';
 
 
 const NewPostForm = () => {
-
     const newPost = {}
 
     // Get SQL friendly DateTime
@@ -35,15 +33,12 @@ const NewPostForm = () => {
         newPost[event.target.id] = event.target.value
         newPost.userProfileId = parseInt(newPost.userProfileId)
         newPost.dateCreated = date.yyyymmdd();
-        //console.log(newPost)
     }
 
     const handleClickSavePost = (event) => {
         event.preventDefault()
         submitPost(newPost)
     }
-
-
 
     return (
         <section className="newPostFormArea">
