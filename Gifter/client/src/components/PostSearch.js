@@ -2,8 +2,6 @@ import React from 'react';
 
 const SearchPosts = ({ onSearch }) => {
 
-
-
     let searchTerm;
 
     const handleControlledInputChange = (event) => {
@@ -12,21 +10,14 @@ const SearchPosts = ({ onSearch }) => {
 
     const handlSearchButton = (event) => {
         event.preventDefault()
-        //console.log("search term: " + searchTerm)
         searchByTerm(searchTerm)
     }
 
     const searchByTerm = (term) => {
         fetch(`/api/post/search?q=${term}`)
             .then(res => res.json())
-            //.then(data => setPosts(data))            
             .then(data => onSearch(data))
-
-
     }
-
-
-
     return (
         <section className="searchBarArea">
             <form id="searchPostForm">

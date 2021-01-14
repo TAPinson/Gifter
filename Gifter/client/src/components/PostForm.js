@@ -28,7 +28,6 @@ const NewPostForm = ({ onAdd }) => {
             body: JSON.stringify(post)
         })
             .then(applyPosts)
-
     }
 
     const applyPosts = () => {
