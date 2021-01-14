@@ -50,3 +50,11 @@
 .submitPostButton{
   margin-top: 1em;
 }
+
+
+/* Individual Posts */
+.commentBox{
+  background-color: #61dafb;
+  text-align: left;
+  padding: 0.5em;
+}

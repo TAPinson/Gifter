@@ -9,11 +9,13 @@ const PostList = () => {
     useEffect(() => {
         fetch('/api/post')
             .then(res => res.json())
-            .then(data => setPosts(data));
+            .then(data => setPosts(data))
+
     }, []);
 
     return (
         <div className="container">
+            <button onClick={() => { console.log(posts) }}>Log</button>
             <NewPostForm onAdd={setPosts} />
             <PostSearch onSearch={setPosts} />
             <div className="row justify-content-center">
