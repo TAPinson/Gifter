@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Post from './Post';
-import PostSearch from './PostSearch'
-import NewPostForm from "./PostForm"
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);
