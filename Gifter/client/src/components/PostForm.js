@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const NewPostForm = () => {
+const NewPostForm = ({ onAdd }) => {
     const newPost = {}
 
     // Get SQL friendly DateTime
@@ -27,6 +27,15 @@ const NewPostForm = () => {
             },
             body: JSON.stringify(post)
         })
+            .then(applyPosts)
+
+    }
+
+    const applyPosts = () => {
+        fetch('/api/post')
+            .then(res => res.json())
+            .then(data => onAdd(data)
+            )
     }
 
     const handleControlledInputChange = (event) => {

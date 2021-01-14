@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from './Post';
 import PostSearch from './PostSearch'
+import NewPostForm from "./PostForm"
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);
@@ -13,6 +14,7 @@ const PostList = () => {
 
     return (
         <div className="container">
+            <NewPostForm onAdd={setPosts} />
             <PostSearch onSearch={setPosts} />
             <div className="row justify-content-center">
                 <div className="cards-column">

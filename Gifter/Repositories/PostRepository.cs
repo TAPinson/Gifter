@@ -21,6 +21,7 @@ namespace Gifter.Repositories
             return _context.Post
                 .Include(prop => prop.UserProfile)
                 .Include(prop => prop.Comments)
+                .OrderByDescending(p => p.Id)
                 .ToList();
         }
 
