@@ -16,8 +16,8 @@ const PostList = () => {
     return (
         <div className="container">
             <button onClick={() => { console.log(posts) }}>Log</button>
-            <NewPostForm onAdd={setPosts} />
-            <PostSearch onSearch={setPosts} />
+            {/* <NewPostForm onAdd={setPosts} />
+            <PostSearch onSearch={setPosts} /> */}
             <div className="row justify-content-center">
                 <div className="cards-column">
                     {posts.map((post) => (

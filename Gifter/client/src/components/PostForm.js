@@ -1,7 +1,9 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
 
 const NewPostForm = ({ onAdd }) => {
+    const history = useHistory();
     const newPost = {}
 
     // Get SQL friendly DateTime
@@ -27,15 +29,17 @@ const NewPostForm = ({ onAdd }) => {
             },
             body: JSON.stringify(post)
         })
-            .then(applyPosts)
+            //.then(applyPosts)
+            .then(history.push("/"))
+
     }
 
-    const applyPosts = () => {
-        fetch('/api/post')
-            .then(res => res.json())
-            .then(data => onAdd(data)
-            )
-    }
+    // const applyPosts = () => {
+    //     fetch('/api/post')
+    //         .then(res => res.json())
+    //         .then(data => onAdd(data)
+    //         )
+    // }
 
     const handleControlledInputChange = (event) => {
         newPost[event.target.id] = event.target.value
