@@ -12,14 +12,21 @@ const SearchPosts = () => {
 
     const handlSearchButton = (event) => {
         event.preventDefault()
-        console.log("search term: " + searchTerm)
+        //console.log("search term: " + searchTerm)
+        searchByTerm(searchTerm)
+    }
+
+    const searchByTerm = (term) => {
+        fetch(`/api/post/search?q=${term}`)
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .then(data => setPosts(data))
+
     }
 
 
 
     return (
-
-
         <section className="searchBarArea">
             <form id="searchPostForm">
                 <fieldset>
@@ -31,9 +38,7 @@ const SearchPosts = () => {
                 </fieldset>
             </form>
         </section>
-
     )
-
 }
 
 export default SearchPosts;
