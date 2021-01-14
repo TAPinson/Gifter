@@ -20,12 +20,15 @@ namespace Gifter.Repositories
         public List<UserProfile> GetAll()
         {
             return _context.UserProfile
+                .Include(p => p.Posts)                
                 .ToList();
         }
 
         public UserProfile GetById(int id)
         {
-            return _context.UserProfile.FirstOrDefault(profile => profile.Id == id);
+            return _context.UserProfile
+                .Include(p => p.Posts)
+                .FirstOrDefault(profile => profile.Id == id);
         }
 
         public void Add(UserProfile userProfile)
