@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const SearchPosts = () => {
-    const [posts, setPosts] = useState([]);
+const SearchPosts = ({ onSearch }) => {
+
 
 
     let searchTerm;
@@ -19,8 +19,9 @@ const SearchPosts = () => {
     const searchByTerm = (term) => {
         fetch(`/api/post/search?q=${term}`)
             .then(res => res.json())
-            .then(data => console.log(data))
-            .then(data => setPosts(data))
+            //.then(data => setPosts(data))            
+            .then(data => onSearch(data))
+
 
     }
 
