@@ -3,6 +3,7 @@ using Gifter.Data;
 using Gifter.Repositories;
 using Gifter.Models;
 using System;
+using System.Security.Claims;
 
 namespace Gifter.Controllers
 {
@@ -11,9 +12,11 @@ namespace Gifter.Controllers
     public class PostController : ControllerBase
     {
         private IPostRepository _postRepository;
-        public PostController(IPostRepository postRepository)
+        private IUserProfileRepository _userProfileRepository;
+        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository)
         {
             _postRepository = postRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -75,6 +78,12 @@ namespace Gifter.Controllers
         public IActionResult Hottest(DateTime since)
         {
             return Ok(_postRepository.Hottest(since));
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }

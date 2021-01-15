@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Gifter.Controllers
@@ -14,18 +15,18 @@ namespace Gifter.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly UserProfileRepository _userProfileRepository;
-        public UserProfileController(ApplicationDbContext context)
-        {
-            _userProfileRepository = new UserProfileRepository(context);
-        }
-        //private IUserProfileRepository _userProfileRepository;
-
-        //public UserProfileController(IUserProfileRepository userProfileRepository)
+        //private readonly UserProfileRepository _userProfileRepository;
+        //public UserProfileController(ApplicationDbContext context)
         //{
-        //    _userProfileRepository = userProfileRepository;
-
+        //    _userProfileRepository = new UserProfileRepository(context);
         //}
+        private IUserProfileRepository _userProfileRepository;
+
+        public UserProfileController(IUserProfileRepository userProfileRepository)
+        {
+            _userProfileRepository = userProfileRepository;
+
+        }
 
         public IActionResult Get()
         {
@@ -62,6 +63,12 @@ namespace Gifter.Controllers
             userProfile.DateCreated = DateTime.Now;
             _userProfileRepository.Add(userProfile);
             return Ok(userProfile);
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
 
         //[HttpPut("{id}")]

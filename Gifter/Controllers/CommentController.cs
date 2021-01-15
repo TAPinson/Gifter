@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Gifter.Controllers
@@ -15,10 +16,12 @@ namespace Gifter.Controllers
     public class CommentController : ControllerBase
     {
         private ICommentRepository _commentRepository;
+        private IUserProfileRepository _userProfileRepository;
 
-        public CommentController(ICommentRepository commentRepository)
+        public CommentController(ICommentRepository commentRepository, IUserProfileRepository userProfileRepository)
         {
             _commentRepository = commentRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         public IActionResult Get()
@@ -67,6 +70,12 @@ namespace Gifter.Controllers
 
             _commentRepository.Update(comment);
             return NoContent();
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
 
     }
