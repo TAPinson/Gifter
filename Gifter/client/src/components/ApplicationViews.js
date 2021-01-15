@@ -4,6 +4,8 @@ import PostList from "./PostList";
 import PostForm from "./PostForm";
 import PostDetails from './PostDetails'
 import UserPosts from './UserPosts'
+import Login from './Login'
+import Register from './Register'
 
 const ApplicationViews = () => {
     return (
@@ -24,6 +26,15 @@ const ApplicationViews = () => {
             <Route path="/userprofile/:id">
                 <UserPosts />
             </Route>
+
+            <Route path="/login">
+                <Login />
+            </Route>
+
+            <Route path="/register">
+                <Register />
+            </Route>
+
 
         </Switch>
     );

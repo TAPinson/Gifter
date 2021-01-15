@@ -8,16 +8,16 @@ const UserPosts = () => {
 
     let postersName = "NAME VARIABLE"
 
-    useEffect(() => {
-        fetch(`/api/userprofile/${id}`) // <-------- Start here. Only thing dont to this page is copy past, function rename
-            .then(res => res.json())
-            .then(userProfile => {
-                postersName = userProfile.name
-                console.log(postersName)
-                setPosts(userProfile.posts)
-            })
-        //.then(userProfile => postersName = userProfile.name)
-    }, []);
+    // useEffect(() => {
+    //     fetch(`/api/userprofile/${id}`) // <-------- Start here. Only thing dont to this page is copy past, function rename
+    //         .then(res => res.json())
+    //         .then(userProfile => {
+    //             postersName = userProfile.name
+    //             console.log(postersName)
+    //             setPosts(userProfile.posts)
+    //         })
+    //     //.then(userProfile => postersName = userProfile.name)
+    // }, []);
 
     if (posts !== undefined) {
         return (
