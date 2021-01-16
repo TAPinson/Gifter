@@ -12,7 +12,7 @@ const PostList = () => {
             fetch('/api/post', {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}` // The token gets added to the Authorization header
+                    Authorization: `Bearer ${token}`
                 }
             })
                 .then(resp => resp.json())

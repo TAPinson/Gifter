@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 const Post = ({ post }) => {
     return (
         <Card className="m-4">
-            <p className="text-left px-2">Posted by: {post.userProfile.name}</p>
+            <p className="text-left px-2">Posted by:
+                <Link to={`/users/${post.userProfileId}`}>
+                    <strong> {post.userProfile.name}</strong>
+                </Link>
+            </p>
             <CardImg top src={post.imageUrl} alt={post.title} />
             <CardBody>
                 <p>
@@ -14,11 +18,6 @@ const Post = ({ post }) => {
                     </Link>
                 </p>
                 <p>{post.caption}</p>
-
-                {/* {post.comments.map((comment) => {
-                    return <div className="commentBox" key={comment.id}>{comment.message}</div>
-                })} */}
-
             </CardBody>
         </Card>
     );
