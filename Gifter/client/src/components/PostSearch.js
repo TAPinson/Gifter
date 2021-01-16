@@ -18,6 +18,8 @@ const SearchPosts = ({ onSearch }) => {
     const searchByTerm = (term) => {
         getToken()
             .then((token => {
+
+
                 fetch(`/api/post/search?q=${term}`, {
                     headers: "GET",
                     headers: {

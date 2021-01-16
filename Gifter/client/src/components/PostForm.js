@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
+import { UserProfileContext } from "../providers/UserProfileProvider";
 
 
 const NewPostForm = ({ onAdd }) => {
     const history = useHistory();
     const newPost = {}
+    const { getToken } = useContext(UserProfileContext);
 
     // Get SQL friendly DateTime
     Date.prototype.yyyymmdd = function () {
@@ -22,24 +24,21 @@ const NewPostForm = ({ onAdd }) => {
     // End DateTime Setup
 
     const submitPost = (post) => {
-        fetch('/api/post', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(post)
-        })
-            //.then(applyPosts)
-            .then(history.push("/"))
+        getToken()
+            .then((token) => {
 
+
+                fetch('/api/post', {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(post)
+                })
+                    .then(history.push("/"))
+            })
     }
-
-    // const applyPosts = () => {
-    //     fetch('/api/post')
-    //         .then(res => res.json())
-    //         .then(data => onAdd(data)
-    //         )
-    // }
 
     const handleControlledInputChange = (event) => {
         newPost[event.target.id] = event.target.value
