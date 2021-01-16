@@ -26,8 +26,6 @@ const NewPostForm = ({ onAdd }) => {
     const submitPost = (post) => {
         getToken()
             .then((token) => {
-
-
                 fetch('/api/post', {
                     method: "POST",
                     headers: {

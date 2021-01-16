@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Post from "./Post";
+import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const UserPosts = () => {
     const [posts, setPosts] = useState();
     const { id } = useParams();
+    const { getToken } = useContext(UserProfileContext);
 
-    let postersName = "NAME VARIABLE"
+    useEffect(() => {
+        getToken()
+            .then((token) => {
 
-    // useEffect(() => {
-    //     fetch(`/api/userprofile/${id}`) // <-------- Start here. Only thing dont to this page is copy past, function rename
-    //         .then(res => res.json())
-    //         .then(userProfile => {
-    //             postersName = userProfile.name
-    //             console.log(postersName)
-    //             setPosts(userProfile.posts)
-    //         })
-    //     //.then(userProfile => postersName = userProfile.name)
-    // }, []);
+                fetch(`/api/post/getbyuser/${id}`, {
+                    methid: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => setPosts(data))
+            })
+    }, []);
 
     if (posts !== undefined) {
         return (
@@ -25,8 +29,6 @@ const UserPosts = () => {
                 <div className="row justify-content-center">
 
                     {posts.map((post) => {
-                        post.userProfile = {}
-                        post.userProfile.name = postersName
                         return (<Post key={post.id} post={post} />)
                     })}
 
@@ -41,7 +43,7 @@ const UserPosts = () => {
                 <button onClick={() => {
                     console.log(posts)
                 }}>debug</button>
-                Nothing to see here {postersName}
+                Nothing to see here
             </div>
 
         );

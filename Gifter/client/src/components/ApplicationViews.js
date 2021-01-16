@@ -23,7 +23,7 @@ const ApplicationViews = () => {
                 <PostDetails />
             </Route>
 
-            <Route path="/userprofile/:id">
+            <Route path="/users/:id">
                 <UserPosts />
             </Route>
 

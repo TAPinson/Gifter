@@ -1,16 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { useParams } from "react-router-dom";
 import Post from "./Post";
+import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const PostDetails = () => {
     const [post, setPost] = useState();
     const { id } = useParams();
+    const { getToken } = useContext(UserProfileContext);
 
     useEffect(() => {
-        fetch(`/api/post/${id}`)
-            .then(res => res.json())
-            .then(post => setPost(post));
+        getToken()
+            .then((token) => {
+                fetch(`/api/post/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(post => setPost(post));
+            })
     }, []);
 
     if (!post) {
