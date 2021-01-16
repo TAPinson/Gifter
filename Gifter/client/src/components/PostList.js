@@ -1,17 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Post from './Post';
 import { UserProfileContext } from "../providers/UserProfileProvider";
+import PostSearch from './PostSearch'
 
 const PostList = () => {
     const { getToken } = useContext(UserProfileContext);
     const [posts, setPosts] = useState([]);
-
-    // useEffect(() => {
-    //     fetch('/api/post')
-    //         .then(res => res.json())
-    //         .then(data => setPosts(data))
-
-    // }, []);
 
     useEffect(() => {
         getToken().then((token) =>
@@ -29,7 +23,8 @@ const PostList = () => {
         <div className="container">
             <button onClick={() => { console.log(posts) }}>Log</button>
             {/* <NewPostForm onAdd={setPosts} />
-            <PostSearch onSearch={setPosts} /> */}
+             */}
+            <PostSearch onSearch={setPosts} />
             <div className="row justify-content-center">
                 <div className="cards-column">
                     {posts.map((post) => (

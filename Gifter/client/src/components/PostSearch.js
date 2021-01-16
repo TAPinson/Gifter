@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const SearchPosts = ({ onSearch }) => {
+    const { getToken } = useContext(UserProfileContext);
 
     let searchTerm;
 
@@ -14,10 +16,19 @@ const SearchPosts = ({ onSearch }) => {
     }
 
     const searchByTerm = (term) => {
-        fetch(`/api/post/search?q=${term}`)
-            .then(res => res.json())
-            .then(data => onSearch(data))
+        getToken()
+            .then((token => {
+                fetch(`/api/post/search?q=${term}`, {
+                    headers: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => onSearch(data))
+            }))
     }
+
     return (
         <section className="searchBarArea">
             <form id="searchPostForm">
